@@ -1,4 +1,8 @@
 ## It is used to calculate the number of exon, gene, mRNA and CDS in gff file.
+## If it is a csv file:
+#import csv    #加载csv包便于读取csv文件
+#csv_file=open('zou.csv')    #打开csv文件
+#csv_reader_lines = csv.reader(csv_file)   #逐行读取csv文件
 
 dicts = {'exon':0, 'gene':0, 'mRNA':0, 'CDS':0, }
 
