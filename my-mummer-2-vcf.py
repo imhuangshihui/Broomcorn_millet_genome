@@ -1,3 +1,8 @@
+"""
+python my_mummer_2_vcf.py -s out.snps --output-header --reference /public1/home/sc80041/huangshihui/MUMmer/LMA.fa > out.snps.vcf
+https://www.biostars.org/p/395210/
+"""
+
 #!/usr/bin/env python3
 
 import argparse
