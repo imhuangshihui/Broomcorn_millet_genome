@@ -1,3 +1,7 @@
+"""
+该脚本用于将EDTA的输出文件.gff3中LTR特定的identity画图看看是否有峰，可惜糜子的峰值效果不明显
+作者：尚一猛
+"""
 import pandas as pd  #安装pandas并命名为pd，用于将数据存入excel
 with open('zou.fna.mod.EDTA.intact.gff3', 'r') as f1:  #读入文件
     list1 = f1.readlines()
