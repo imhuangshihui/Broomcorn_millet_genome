@@ -1,0 +1,41 @@
+**鉴定PAV的原理**：A材料里有，B材料里没有的序列，所以只需要把A材料的序列比到B材料上，找到A有但是比对不上B的序列，把这些序列进行合并，找到的就是A特有的序列
+**鉴定PAV的工具**：BWA MEM
+1）BWA的下载和安装[1]
+$ wget http://jaist.dl.sourceforge.net/project/bio-bwa/bwa-0.7.9a.tar.bz2
+$ tar jxf bwa-0.7.9a.tar.bz2 -C /opt/biosoft/
+$ cd /opt/biosoft/bwa-0.7.9a/
+$ make
+$ echo 'PATH=$PATH:/public1/home/sc80041/huangshihui/biosoft/bwa-0.7.9a' >> ~/.bashrc   # 这一步将bwa路径加入以后，在使用时就不需要全路径
+$ source ~/.bashrc
+**鉴定PAV的流程**： 找哪个基因组特有的PAV，就拆分它的基因组，然后对应的另一个基因组做bwa index. 比如，本例中用LongmiA作为bwa index，需要拆分LongmiB的亚基因组作为Input.
+1）拆分LongmiB基因组
+perl *.pl *.fasta bin_size step_size output  # 注意拆分的基因组和建立索引的基因组染色体名称应该是一致的
+perl split_sequence_into_bins.pl /public1/home/sc80041/huangshihui/data/Panicum_miliaceum/Longmi4/LongmiB.fa 500 100 PAV_split_LongmiB.fa
+1）bwa 建立索引
+#!/bin/bash
+
+source ~/.bashrc
+
+srun -n 3 bwa index /public1/home/sc80041/huangshihui/data/Panicum_miliaceum/Longmi4/LongmiA.fa -p LongmiA_index
+
+-p 输出数据库的前缀, 如果不添加则默认将索引的输出文件放到和LongmiA.fa同一个目录下
+
+输出文件：
+LongmiA_index.amb
+LongmiA_index.ann
+LongmiA_index.bwt
+LongmiA_index.pac
+LongmiA_index.sa
+
+2）bwa mem 比对
+#!/bin/bash
+
+source ~/.bashrc
+
+srun -n 10 bwa mem LongmiA_index -w 500 -M PAV_split_LongmiB.fa > LongmiB_specific_split.sam 
+-w 500 -M 参数来自Mo17[2]
+
+
+
+[1]http://www.chenlianfu.com/?p=2103 bwa的使用|陈连福的生信博客
+[2]https://www.nature.com/articles/s41477-020-00834-5 Extensive intraspecific gene order and gene structural variations between Mo17 and other maize genomes
