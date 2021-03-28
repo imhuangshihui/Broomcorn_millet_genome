@@ -27,15 +27,23 @@ LongmiA_index.bwt
 LongmiA_index.pac
 LongmiA_index.sa
 
-2）bwa mem 比对
+2）bwa mem 比对，并使用samtools 将格式转换为bam文件，否则sam文件会很大
 #!/bin/bash
 
 source ~/.bashrc
 
-srun -n 10 bwa mem LongmiA_index -w 500 -M PAV_split_LongmiB.fa > LongmiB_specific_split.sam 
+srun -n 10 bwa mem -t 10 -w 500 -M ./genome ./PAV_split_LongmiB.fa | samtools view -b -o ./PAV_split_LongmiA.bwa_mem.genome.bam
 -w 500 -M 参数来自Mo17[2]
+用了十个线程在bwa时也要用-t 10
+./genome 是建立索引的文件名
+-b 输出为bam文件
+-o 输出文件名称
 
-
+3）
+samtools view -h PAV_split_LongmiA.bwa_mem.genome.bam | less -S   # 查看bam文件
+samtools view -f 4 PAV_split_LongmiA.bwa_mem.genome.bam | awk '{print $1}' > chr_coords.txt   # -f 4：找到unmapped sequence 并取出第一列的数据如GWHAAEZ00000009:62101-62600
+cat chr_coords.txt | awk -F ':' '{print $1}' > chr.txt
+cat chr_coords.txt | awk -F ':' '{print $2}' | awk -F '-' '{print $0}' > coords.txt  # 先根据“:”分成两列，取出有坐标的第二列，再根据“-”将他们分开
 
 [1]http://www.chenlianfu.com/?p=2103 bwa的使用|陈连福的生信博客
 [2]https://www.nature.com/articles/s41477-020-00834-5 Extensive intraspecific gene order and gene structural variations between Mo17 and other maize genomes
