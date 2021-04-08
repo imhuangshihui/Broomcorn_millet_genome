@@ -9,7 +9,7 @@ $ echo 'PATH=$PATH:/public1/home/sc80041/huangshihui/biosoft/bwa-0.7.9a' >> ~/.b
 $ source ~/.bashrc
 **鉴定PAV的流程**： 找哪个基因组特有的PAV，就拆分它的基因组，然后对应的另一个基因组做bwa index. 比如，本例中用LongmiA作为bwa index，需要拆分LongmiB的亚基因组作为Input.
 1）拆分LongmiB基因组
-perl *.pl *.fasta bin_size step_size output  # 注意拆分的基因组和建立索引的基因组染色体名称应该是一致的
+perl *.pl *.fasta bin_size step_size output  
 perl split_sequence_into_bins.pl /public1/home/sc80041/huangshihui/data/Panicum_miliaceum/Longmi4/LongmiB.fa 500 100 PAV_split_LongmiB.fa
 1）bwa 建立索引
 #!/bin/bash
@@ -43,7 +43,12 @@ srun -n 10 bwa mem -t 10 -w 500 -M ./genome ./PAV_split_LongmiB.fa | samtools vi
 samtools view -h PAV_split_LongmiA.bwa_mem.genome.bam | less -S   # 查看bam文件
 samtools view -f 4 PAV_split_LongmiA.bwa_mem.genome.bam | awk '{print $1}' > chr_coords.txt   # -f 4：找到unmapped sequence 并取出第一列的数据如GWHAAEZ00000009:62101-62600
 cat chr_coords.txt | awk -F ':' '{print $1}' > chr.txt
-cat chr_coords.txt | awk -F ':' '{print $2}' | awk -F '-' '{print $0}' > coords.txt  # 先根据“:”分成两列，取出有坐标的第二列，再根据“-”将他们分开
+cat chr_coords.txt | awk -F ':' '{print $2}' | awk -F '-' '{print $1}' > coords1.txt  
+cat chr_coords.txt | awk -F ':' '{print $2}' | awk -F '-' '{print $2}' > coords2.txt  
+paste chr.txt coords1.txt coords2.txt > wait_sort.bed
+sort -k 1,1 -k 2,2n wait_sort.bed > sorted.bed
+conda activate huangshihui
+bedtools merge -i sorted.bed > LongmiB_PAV.txt
 
 [1]http://www.chenlianfu.com/?p=2103 bwa的使用|陈连福的生信博客
 [2]https://www.nature.com/articles/s41477-020-00834-5 Extensive intraspecific gene order and gene structural variations between Mo17 and other maize genomes
