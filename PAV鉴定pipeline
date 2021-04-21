@@ -54,6 +54,7 @@ bedtools merge -i sorted.bed > LongmiB_PAV.txt
 以Longmi4_LM01特有的PAV序列为例：
 
 1.用终止位置-起始位置，得到PAV序列的大小，目前办法是把Longmi4_PAV.txt这个文件传送到excel进行计算再传回来，得到/public1/home/sc80041/huangshihui/PAV/Longmi4_specific/circos/pav_size.tx
+也可以用awk直接实现：cat LongmiA_PAV.txt | awk '{print $1,$2,$3,$3-$2}' > pav_size.txt
 cat pav_size.txt | awk '$1="LM01"{print}' # 取出带有LM01的行
 LM01    5229501 5230600 1099
 LM01    5230801 5231300 499
@@ -470,7 +471,6 @@ while b <= 32237550+100000:
     print(sum(a,b),file=wenjian)
     a += 100000
     b += 100000
-    
-    
+合并文件：cat LM01.dsp LM02.dsp LM03.dsp LM04.dsp LM05.dsp LM06.dsp LM07.dsp LM08.dsp LM09.dsp LM10.dsp LM11.dsp LM12.dsp LM13.dsp LM14.dsp LM15.dsp LM16.dsp LM17.dsp LM18.dsp > LM4_PAV_circos.txt
 [1]http://www.chenlianfu.com/?p=2103 bwa的使用|陈连福的生信博客
 [2]https://www.nature.com/articles/s41477-020-00834-5 Extensive intraspecific gene order and gene structural variations between Mo17 and other maize genomes
