@@ -1,0 +1,11 @@
+1. 获取CDS的bed文件
+zcat LMA_CoGe.gff.gz |awk '$3=="CDS"{print}'|awk '{print $1,$4,$5}'> LMA_coords.cds.bed
+sort -k 1,1 -k 2,2n LMA_coords.cds.bed | tr ' ' '\t' > LMA_sorted.cds.bed
+conda activate huangshihui
+bedtools merge -i LMA_sorted.cds.bed > LMA.cds.bed
+2. bedtools coverage -a A.bed -b B.bed > output.txt
+输出文件格式为7列：染色体、区间起始位点、区间结束位点、该区间内的reads数、该区间内的碱基数、区间大小、该区间的平均覆盖度
+不知道输出文件和特异性基因有什么关系
+https://www.jianshu.com/p/f8bbd51b5199 最全Bedtools使用说明--只看本文就够了
+https://blog.csdn.net/qq_43417265/article/details/116591831 bedtools统计窗口内平均覆盖深度
+https://bedtools.readthedocs.io/en/latest/content/tools/coverage.html  # bedtools coverage官方文档
