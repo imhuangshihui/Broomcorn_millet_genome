@@ -1,0 +1,28 @@
+最终目的：得到一个三列文件进行绘图，第一列是contig名称，第二列是GC percent，第三列是测序深度depth 
+1.获得GC含量
+cd /data4/wangzhiheng/hifi_raw_species/hifi_reads_evaluation
+python3 all2one.py maize.fa  # 目的是为了生成一个染色体序列没有换行符的文件，得到maize.fa_all2one.fna
+python3 GC.py maize.fa_all2one.fna > maize_gc.txt  # 原理是计算G和C的比例
+2.获得测序深度depth
+source ~/.bashrc  # 激活conda环境
+conda activate samtools  
+  2.1 samtools sort -l 9 -m 90M -o maize.sorted.bam -@ 2 maize_hifi.bam
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+                    l INT 设置输出文件压缩等级。0-9，0是不压缩，9是压缩等级最高。不设置此参数时，使用默认压缩等级；
+
+                   -m INT 设置每个线程运行时的内存大小，可以使用K，M和G表示内存大小。
+
+                   -n 设置按照read名称进行排序；
+
+                   -o FILE 设置最终排序后的输出文件名；
+
+                   -O FORMAT 设置最终输出的文件格式，可以是bam，sam或者cram，默认为bam；
+
+                   -T PREFIX 设置临时文件的前缀；
+
+                   -@ INT 设置排序和压缩是的线程数量，默认是单线程。
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+  2.2 samtools converage -A maize.sorted.bam -o coverage/maize.txt
+  2.3 提取文件中的Mean corverage  # 目前还没有解决办法
+3.合并GC和depth
+4.绘制图谱
