@@ -22,7 +22,12 @@ conda activate samtools
 
                    -@ INT 设置排序和压缩是的线程数量，默认是单线程。
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-  2.2 samtools converage -A maize.sorted.bam -o coverage/maize.txt
+  2.2 samtools coverage -A maize.sorted.bam -o coverage/maize.txt
   2.3 提取文件中的Mean corverage  # 目前还没有解决办法
 3.合并GC和depth
 4.绘制图谱
+
+
+Reference
+http://www.htslib.org/doc/samtools-coverage.html  samtools coverage mannual
+https://blog.csdn.net/u013553061/article/details/53179945   [samtools]sort命令简介
