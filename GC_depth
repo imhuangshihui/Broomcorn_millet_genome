@@ -22,12 +22,27 @@ conda activate samtools
 
                    -@ INT 设置排序和压缩是的线程数量，默认是单线程。
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-  2.2 samtools coverage -A maize.sorted.bam -o coverage/maize.txt
-  2.3 提取文件中的Mean corverage  # 目前还没有解决办法
+  2.2 samtools coverage maize.sorted.bam -o coverage/maize.txt
+  2.3 提取文件中的meandepth 直接用awk
 3.合并GC和depth
+paste barley_gc.txt corverage/barley_depth.txt | awk '{print $(NF-1)*100,$NF}'| head
 4.绘制图谱
-
+老师R绘图脚本：
+pdf("./GC-depth_rice.pdf");
+aa<-read.table("./rice_noheader.txt",header=F);
+plot(aa[,1],aa[,2],cex=0.5,xlab="GC content",ylab="Depth",ylim=c(0,500));
+while (!is.null(dev.list()))  dev.off()
+网上参考脚本：
+df <- read.table("./result.txt", header = TRUE)
+dcols <- densCols(df, colramp=colorRampPalette(c("black", "white")), nbin = 1000)
+df$dens <- col2rgb(dcols)[1,] + 1L
+cols <- colorRampPalette(c("RoyalBlue", "orange", "red"), space = "Lab")(256)
+df$col <- cols[df$dens]
+png("GC_depth_test.png", width = 20, height = 18, units = "cm", res = 300)
+plot(avgDepth ~ GCpercent, data=df[order(df$dens),], col=col, ylab="Average depth (X)", xlab="GC content (%)", cex.lab = 1.4, cex.axis = 1.3, pch = 20, ylim = c(0,100), xlim = c(10,80))
+while (!is.null(dev.list()))  dev.off()
 
 Reference
 http://www.htslib.org/doc/samtools-coverage.html  samtools coverage mannual
 https://blog.csdn.net/u013553061/article/details/53179945   [samtools]sort命令简介
+https://blog.csdn.net/huangliangbo0805/article/details/51165943 GCdepth散点图绘制
