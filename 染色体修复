@@ -1,0 +1,6 @@
+Juicebox打开hic文件，查看每条染色体异常情况
+grep 'chr5_RagTag' *.1coords 查看每条染色体对应的坐标看看是否又异常，比如坐标倒位，和hic重复确认
+把有问题的坐标提取并命名为chr1coords.bed
+cat chr1coords.bed | awk '{print $(NF-1),$1,$2}' | tr ' ' 't' > chr1.bed
+conda activate bedtools （并行里是 conda activate python35）
+bedtools getfasta -fi longmi_v2.fasta -bed chr1.bed -fo chr1.fa.out
