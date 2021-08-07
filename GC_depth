@@ -1,9 +1,9 @@
 最终目的：得到一个三列文件进行绘图，第一列是contig名称，第二列是GC percent，第三列是测序深度depth 
-1.获得GC含量
+# 获得GC含量
 cd /data4/wangzhiheng/hifi_raw_species/hifi_reads_evaluation
 python3 all2one.py maize.fa  # 目的是为了生成一个染色体序列没有换行符的文件，得到maize.fa_all2one.fna
 python3 GC.py maize.fa_all2one.fna > maize_gc.txt  # 原理是计算G和C的比例
-2.获得测序深度depth
+# 获得测序深度depth
 source ~/.bashrc  # 激活conda环境
 conda activate samtools  
   2.1 samtools sort -l 9 -m 90M -o maize.sorted.bam -@ 2 maize_hifi.bam
