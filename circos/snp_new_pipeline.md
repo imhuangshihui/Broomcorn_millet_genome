@@ -25,4 +25,13 @@ all2vcf mummer [OPTIONS]
 --no-Ns             Exclude variants featuring Ns                           [off]
 
 
+**get_snp_vcf.sh**
+
+    all2vcf mummer --snps lzj_K_ref_N_dnadiff.snps --reference lzj.fna --type SNP > lzj_subgenome_snps.vcf
+    
+    python mummer2vcf2circos.py
+    
+**需要修改mummer2vcf2circos.py中的输入文件和输出文件名称**
+
+
 
