@@ -11,7 +11,7 @@ Data: /data14/wangzhiheng/final_v2/snpEff
 
     cat longmi_pm_high.vcf | cut -d '|' -f2 | sort | uniq -c
     
-    ![图片](https://user-images.githubusercontent.com/76728625/157154104-f59ac0a2-5bbe-4c0d-8d46-b8b4c4d15f3b.png)
+![图片](https://user-images.githubusercontent.com/76728625/157154104-f59ac0a2-5bbe-4c0d-8d46-b8b4c4d15f3b.png)
 
 根据每一个突变类型，计算它影响的基因数量（有多个Uniq的Gene ID），再根据Gene ID从gff文件中找到其对应的坐标，不需要用Bedtools了
 
@@ -21,6 +21,10 @@ Data: /data14/wangzhiheng/final_v2/snpEff
     
 ![图片](https://user-images.githubusercontent.com/76728625/157161647-a76b4b14-db7a-4b60-81e5-d93c47030dc2.png)
 
+但是如果不考虑变异类型，对整个anno文件提取Gene ID的话，只有708个独一无二的Gene ID, 和计算的总和不一样
 
+    cat longmi_pm_high.vcf | grep -v '#' | cut -d '|' -f5 | sort | uniq | wc -l
+
+最终是用这708个ID找gff坐标交给师兄做Interpro GO注释
 
     
