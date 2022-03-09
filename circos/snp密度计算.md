@@ -43,3 +43,19 @@
 ![图片](https://user-images.githubusercontent.com/76728625/157383037-0809d059-12f4-4097-b17e-26c11950b0f3.png)
 
 其余染色体情况
+
+
+
+而作为circos的SNP输入文件，则是将mummer得到的文件进行筛选后得到只有SNP的vcf文件，将此文件作为python脚本的Input进行计算
+
+得到的是每个窗口内的SNP密度（而非数量）
+
+> chrname   start   end snp_density_in_this_bin_size
+
+        # Returns the number of snps between l and m, divided by region size
+    def density_region(self, l, m):
+        count = 0
+        for location in self.locations_to_snps:
+            if location >= l and location <= m:
+                count += 1
+        return 1000*count/float(m-l+1)
