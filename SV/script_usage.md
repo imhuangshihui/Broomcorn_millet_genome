@@ -1,3 +1,7 @@
+**ALL the python scripts are written by Zhiheng WANG
+Edit by Shihui HUANG**
+
+
 # 01 Assemblytics輸出文件預處理
 
 **Assemblytics輸出的bed文件分類成Insertion, Deletion, Repeat Region等**
