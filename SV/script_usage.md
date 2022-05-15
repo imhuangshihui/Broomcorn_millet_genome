@@ -1,5 +1,6 @@
-**ALL the python scripts are written by Zhiheng WANG
-Edit by Shihui HUANG**
+**ALL the python scripts are written by Zhiheng WANG**
+
+**The pipeline is edited by Shihui HUANG**
 
 
 # 01 Assemblytics輸出文件預處理
