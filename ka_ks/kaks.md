@@ -30,3 +30,5 @@
 ## 使用ggplot2绘制ka/ks密度曲线
 
 run_kaks.R
+
+R绘图参考：[Ks密度曲线分布图绘图-简书](https://www.jianshu.com/p/a494fa940f06)
