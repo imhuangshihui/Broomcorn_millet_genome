@@ -40,3 +40,15 @@
 **统计滑动窗口内的sv密度**
 
     bedtools coverage -a chrlen.windows -b sv_coverage.bed | cut -f1-4 > sv_density.txt
+    
+**circos要求的PAV輸入文件格式**
+
+    Chr_name(與坐標文件一致)  起始坐標    終止坐標    終止-起始+1
+
+**製作滑動窗口**
+
+    bedtools makewindows -g chr_pos.genome -w 100000 > chr_100kb.windows
+    
+**統計每一個窗口内的PAV長度**
+
+    bedtools coverage -a chr_100kb.windows -b LM_PAV_length.bed | cut -f1-3,5 | tr ' ' '\t' > PAV_length_new_longmi4_100kb.txt
