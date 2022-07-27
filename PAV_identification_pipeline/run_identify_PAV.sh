@@ -5,18 +5,16 @@ source ~/.bashrc
 # In this example, we used LongmiA as the bwa index and splited LongmiB genome
 
 # perl *.pl *.fasta bin_size step_size output  
-
 perl split_sequence_into_bins.pl LongmiB.fa 500 100 PAV_split_LongmiB.fa
 
 # Build index
-
 bwa index LongmiA.fa -p LongmiA_index
 
 # Use bwa mem to map. Sam to bam file.
-
 bwa mem -t 10 -w 500 -M index_name ./PAV_split_LongmiB.fa | samtools view -b -o ./PAV_split_LongmiA.bwa_mem.genome.bam
 
-samtools view -h PAV_split_LongmiA.bwa_mem.genome.bam | less -S   # view the bam file
+# view the bam file
+samtools view -h PAV_split_LongmiA.bwa_mem.genome.bam | less -S   
 
 # -f 4：find unmapped sequence and extract the coords
 
