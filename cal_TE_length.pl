@@ -1,3 +1,5 @@
+#It's used to calculate the length of TE family from EDTA
+
 #!/usr/bin/perl
 use strict;
 use warnings;
