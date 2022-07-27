@@ -23,7 +23,7 @@ mv testA.from.bedtools.cds subA.cds
 mv testB.from.bedtools.cds subB.cds
 
 
-#Update2022/05/06
+# Update2022/05/06
 #GFF to Bed
 python -m jcvi.formats.gff bed --type=mRNA --key=transcript_id longmi_v2_A.gff3 > subA.bed
 ## Get the bed file based on different key
