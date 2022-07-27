@@ -7,7 +7,7 @@ open IN, $ARGV[0];
 die "Need the input fasta." if( ! defined $ARGV[0] );
 while(<IN>){
         chomp;
-        if( /^>(\S+)/ ){   #匹配染色体的名字
+        if( /^>(\S+)/ ){   # chromosome names are started with '>'
                 $name = $1;
         }
         else{
