@@ -12,5 +12,5 @@ awk '{if($1!~"^#"){print $1}}' Longmi4.ks
 awk '{print log($1)/log(2)}' 
 # Don't calculate if come across '0'
 awk '{if ($1 != "0"){print $1}}'
-# Replace all '-inf' to '-10'
+# Replace all '-inf'(product of calculation of non-zero) to '-10'
 awk '{gsub(/-inf/,"-10");print $1}'
