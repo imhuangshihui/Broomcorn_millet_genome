@@ -1,10 +1,16 @@
-## 从CoGe得到Ks的输出文件后，通过整理得到数据用matlab-ksdensity画图
+#!/bin/sh
+
+# Raw input file is from CoGe output "Results with synonymous/non-synonymous rate values"
+
+# Full pipeline
 cat raw.ks | awk '{if($1!~"^#"){print $1}}' | awk '{print log($1)/log(2)}'|awk '{if ($1 != "0"){print $1}}'| awk '{gsub(/-inf/,"-10");print $1}' > output.ks
-# 忽略掉所有井号开头的行，提取第一列的Ks值
+
+# Seperated steps
+# Neglect rows started with '#', and extract the first Ks column
 awk '{if($1!~"^#"){print $1}}' Longmi4.ks    
-# 对第一列取以2为底的对数用log($1)/log(2)
+# Use '2' as the log($1)/log(2)
 awk '{print log($1)/log(2)}' 
-# 如果遇到0则不要计算
+# Don't calculate if come across '0'
 awk '{if ($1 != "0"){print $1}}'
-# 把所有-inf（不计算0的产物）替换为-10
+# Replace all '-inf' to '-10'
 awk '{gsub(/-inf/,"-10");print $1}'
