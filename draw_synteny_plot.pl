@@ -1,4 +1,7 @@
-
+'''
+Author: Junpeng Shi
+This script is used to draw synteny plot based on the MUMmer output *.1coords
+'''
 #!/usr/bin/env perl
 use strict;
 use warnings;
