@@ -1,13 +1,14 @@
-# 加载R包
+# Other types of R plot which can be used to presented the relationship between ka and ks
+# Loading R package
 rm(list=ls())
 library(ggplot2)
 library(reshape2)
 
-#设置工作路径并加载数据
+# Set working path and load the data
 setwd("/Users/Davey/Desktop")
 data <- read.table("test_ks.txt",header = T,sep="\t")
 data <- melt(data,variable.name="Species",value.name =  "Ks")
-#去除缺失的行
+# Delete rows with NA
 data = na.omit(data)
 head(data)
 ##             Species     Ks
