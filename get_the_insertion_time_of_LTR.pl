@@ -1,3 +1,8 @@
+'''
+This script is used to calculate the explosion time of LTR
+Author: Junpeng Shi
+'''
+
 #!/usr/bin/env perl
 use strict;
 use warnings;  # 转座子的计算器|追溯器，
