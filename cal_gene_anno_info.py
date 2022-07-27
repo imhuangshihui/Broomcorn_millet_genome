@@ -7,7 +7,7 @@
 dicts = {'exon':0, 'gene':0, 'mRNA':0, 'CDS':0, }
 
 with open('P.virgatum_N.gff', 'r') as f:
-    lines = f.readlines() # 逐行读取
+    lines = f.readlines() 
     for line in lines:
         s = str(line)
   
