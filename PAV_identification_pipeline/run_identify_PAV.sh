@@ -17,7 +17,6 @@ bwa mem -t 10 -w 500 -M index_name ./PAV_split_LongmiB.fa | samtools view -b -o 
 samtools view -h PAV_split_LongmiA.bwa_mem.genome.bam | less -S   
 
 # -f 4：find unmapped sequence and extract the coords
-
 samtools view -f 4 PAV_split_LongmiA.bwa_mem.genome.bam | awk '{print $1}' > chr_coords.txt   
 cat chr_coords.txt | awk -F ':' '{print $1}' > chr.txt
 cat chr_coords.txt | awk -F ':' '{print $2}' | awk -F '-' '{print $1}' > coords1.txt  
