@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ~/.bashrc
-
 # Step1: harvest_finder
 gt suffixerator -db FIL2.fa -indexname FIL2.fa \
 -tis -suf -lcp -des -ssp -sds -dna \
