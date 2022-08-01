@@ -1,16 +1,16 @@
-从Assemblytics的输出结果bed文件中提取
+The bed file is from Assemblytics
 
-**去掉除了INDEL的部分**
+**Filter, get the Insertion and Deletion variants**
 
     cat my_favorite_organism.Assemblytics_structural_variants.bed | awk '$7=="Deletion" || $7=="Insertion" {print $0}' > sv_and_indel.bed
 
-**根据size的大小区分SV和InDel**
+**Split SV(>50bp) and InDel(<50bp)**
 
     cat sv_and_indel.bed | awk '{if($5>50) print}' > sv.bed
     
     cat sv_and_indel.bed | awk '{if($5<50) print}' > indel.bed
 
-**过滤，去掉不是成对染色体的比对**
+**Filter and get the 1-1 chromosome pairs**
 
     cat sv.bed | awk '$1=="CM029039.1"{print}' | cut -f1,2,3,5,10 | grep 'CM029040.1' > 2KN.sv
     cat sv.bed | awk '$1=="CM029041.1"{print}' | cut -f1,2,3,5,10 | grep 'CM029042.1' > 3KN.sv
@@ -23,7 +23,7 @@
     
     cat all.sv | cut -f5 > N.sv
     
-**利用vim的替换功能，得到与之成套的染色体的坐标信息**
+**Format by vim**
 
     vim N.sv
     
@@ -33,22 +33,22 @@
     
     :%s/+//g
     
-**合并后得到coverage的输入文件**
+**Merge**
 
     cat K.sv N.sv | sort -k 1,1 -k 2,2n > sv_coverage.bed
     
-**统计滑动窗口内的sv密度**
+**Get the SV length in each sliding window**
 
     bedtools coverage -a chrlen.windows -b sv_coverage.bed | cut -f1-4 > sv_density.txt
     
-**circos要求的PAV輸入文件格式**
+**This is format that circos requires**
 
     Chr_name(與坐標文件一致)  起始坐標    終止坐標    終止-起始+1
 
-**製作滑動窗口**
+**Make the sliding window**
 
     bedtools makewindows -g chr_pos.genome -w 100000 > chr_100kb.windows
     
-**統計每一個窗口内的PAV長度**
+**Get the PAV length in each sliding window**
 
     bedtools coverage -a chr_100kb.windows -b LM_PAV_length.bed | cut -f1-3,5 | tr ' ' '\t' > PAV_length_new_longmi4_100kb.txt
