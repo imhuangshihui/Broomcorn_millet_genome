@@ -1,3 +1,4 @@
+# An example for chromosome coordinate input file for circos
 chr - CM029037.1 chr1K 0 56994302 chr1
 chr - CM029038.1 chr1N 0 67001661 chr2
 chr - CM029039.1 chr2K 0 69011629 chr3
