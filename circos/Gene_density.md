@@ -15,3 +15,4 @@ Need two preparation file: gff file of your genome，chromosome name and its len
 **Get gene number in each sliding window**
 
     bedtools coverage -a chrlen.windows -b genes.bed | cut -f1-4 > genes_density.txt
+
