@@ -1,0 +1,22 @@
+##This file was guide of subgenome phase step of A Platinum Grade Genome of Broomcorn Millet Reveals Subgenome Evolution and Organization in Panicum Crops
+
+
+### k-mer extracted by jellyfish in genome-wide and each single chromosome
+sh 01_kmer_extractor.sh
+
+### get kmer in genome-wide over 100-times
+python3 02_kmer_filter.py genome_wide.tsv chromosome*.tsv ## genome_wide.tsv was output of kmer extractor  * indicate all of chromosome tsv file
+
+### make chromosome correspond file
+## example:
+Chr1K.kmer	Chr1N.kmer
+Chr2K.kmer	Chr2N.kmer
+Chr3K.kmer	Chr3N.kmer
+...
+ensure kmer file and 03_phase.py has same folder
+
+python3 03_phase.py correspond.file
+
+# reading output file:
+
+The output will mention chromosome in subgenome and kmer evidence number.
