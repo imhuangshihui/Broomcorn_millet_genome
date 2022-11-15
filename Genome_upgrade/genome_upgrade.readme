@@ -1,0 +1,40 @@
+##This file was guide of genome upgrade step of A Platinum Grade Genome of Broomcorn Millet Reveals Subgenome Evolution and Organization in Panicum Crops
+
+# Step1 HiFi reads assembly
+sh 01_run_hifiasm.sh
+
+# Step2 merge longmi_v1 contig and hifiasm primary result
+sh 02_run_quickmerge.sh
+
+##### Blast online used to clean the microbe pollutions
+
+# Step3 scaffolding merged genome file
+sh 03_run_ragtag.sh
+
+# Step4 Scaffold curation by HiC data
+sh 04_run_hic.sh ##config file and length file contained
+#After HiC verified, remove this error (replace or cut and reverse)
+
+# Step5 TE annotation
+sh 05_run_edta.sh
+
+# Step6 gene annotation
+##Total 3 source gene prediction used
+### ab inito:
+sh 06_run_augustus.sh ##Training Augustus by BUSCO and rename the output augustus of BUSCO-tag
+
+### RNA-seq source:
+python3 08_run_hisat2.py
+sh 08_transdecoder_stringtie.sh
+
+### homologue and RNA-seq:
+sh 07_run_gemomapipeline.sh ##the file of rna-evidence was produced by RNA-seq resource
+
+### combine all source 
+sh 09_run_evm.sh
+
+### get splicing evidence
+sh 10_run_pasa.sh
+
+### remove TE in CDS
+sh 11_remove_TEs.sh # The file of TE database was produced by EDTA

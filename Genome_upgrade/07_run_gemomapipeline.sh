@@ -1,0 +1,3 @@
+#!/bin/bash
+#This pipeline containing homologue and RNA-seq source gene prediction
+java -jar /path/to/GeMoMa-1.7.1.jar CLI GeMoMaPipeline threads=40 outdir=./finalv2_result GeMoMa.Score=ReAlign AnnotationFinalizer.r=NO o=true p=false t=final_softmask_hardmask.fa s=own i=AT g=Arabidopsis_thaliana.fa a=Arabidopsis_thaliana.gff3 s=own i=rice g=Oryza_sativa.fa a=Oryza_sativa.gff3 s=own i=PH g=Panicum_halliiHAL.fa a=Panicum_halliiHAL.gff3 s=own i=SI g=Setaria_italica.fa a=Setaria_italica.gff3 s=own i=Switchgrass g=Pvirgatum.fa a=Pvirgatum.gff3 s=own i=SB g=Sorghum_bicolor.fa a=Sorghum_bicolor.gff3 s=own i=ZM g=Zea_mays.fa a=Zea_mays.gff3 s=own i=V1 g=longmi_v1.fa a=longmi_v1.gff3 r=MAPPED ERE.m=rnaseq.bam
